@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="course_name">Our Courses</h1>
+        
+        <div class="columns is-multiline">
+            {% for course in courses %}
+            <div class="column is-one-third">
+                <div class="card">
+                    {% if course.photo_main %}
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ course.photo_main.url }}" alt="{{ course.course_name }}">
+                        </figure>
+                    </div>
+                    {% endif %}
+                    <div class="card-content">
+                        <h2 class="course_name is-4">{{ course.course_name }}</h2>
+                        <p class="subcourse_name is-6">Code: {{ course.course_code }}</p>
+                        <div class="content">
+                            <p><strong>Location:</strong> {{ course.get_location_display }}</p>
+                            <p><strong>Fee:</strong> ${{ course.fee }}</p>
+                            <p><strong>Class Size:</strong> {{ course.class_size }} students</p>
+                            <p><strong>Start Date:</strong> {{ course.start_date }}</p>
+                            <p><strong>End Date:</strong> {{ course.end_date }}</p>
+                            <p><strong>Medium:</strong> {{ course.medium }}</p>
+                            <p><strong>Admission Criteria:</strong> {{ course.admission_criteria }}</p>
+                        </div>
+                        <a href="#" class="button is-primary">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="column">
+                <p class="has-text-centered">No courses available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} 

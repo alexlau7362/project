@@ -1,0 +1,219 @@
+{% extends 'base.html' %} {% block content %}
+<section id="register" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4><i class="fas fa-user-plus"></i> Register</h4>
+            </div>
+            <div class="card-body" >
+            <!-- add alerts -->
+            {% include 'partials/_alert.html' %}
+              <form action="{% url 'register' %}" method="POST">
+              {% csrf_token %}
+                <div class="form-group">
+                  <label for="first_name">First Name</label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="last_name">Last Name</label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password2">Confirm Password</label>
+                  <input
+                    type="password"
+                    name="password2"
+                    class="form-control"
+                  />
+                </div>
+                <input
+                  type="submit"
+                  value="Register"
+                  class="btn btn-secondary btn-block"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock %}
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <div class="card">
+              <div class="card-header bg-primary text-white">
+                <h4><i class="fas fa-user-plus"></i> Register</h4>
+              </div>
+              <div class="card-body">
+                <form action="index.html">
+                  <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input
+                      type="text"
+                      name="first_name"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input
+                      type="text"
+                      name="last_name"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input
+                      type="text"
+                      name="username"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password2">Password</label>
+                    <input
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Confirm Password</label>
+                    <input
+                      type="password"
+                      name="password2"
+                      class="form-control"
+                      required
+                    />
+                  </div>
+                  <input
+                    type="submit"
+                    value="Register"
+                    class="btn btn-secondary btn-block"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="course_name">Noticeboard</h1>
+        
+        <div class="columns">
+            <div class="column is-three-quarters">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="course_name is-4">Your Enquiries</h2>
+                        
+                     {% if user_enquiry %}
+                            <div class="table-container">
+                                <table class="table is-fullwidth">
+                                    <thead>
+                                        <tr>
+                                            <th>Course</th>
+                                            <th>Message</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for enquiry in user_enquiry %}
+                                        <tr>
+                                            <td>{{ enquiry.course.course_name }}</td>
+                                            <td>{{ enquiry.message }}</td>
+                                            <td>
+                                                <span class="tag {% if enquiry.status == 'pending' %}is-warning{% elif enquiry.status == 'approved' %}is-success{% else %}is-danger{% endif %}">
+                                                    {{ enquiry.status|course_name }}
+                                                </span>
+                                            </td>
+                                            <td>{{ enquiry.created_at|date:"M d, Y" }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="notification">
+                                You haven't made any enquiries yet.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column is-one-quarter">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="course_name is-4">Quick Links</h2>
+                        <div class="buttons">
+                            <a href="{% url 'course' %}" class="button is-primary is-fullwidth">Browse Courses</a>
+                            <a href="{% url 'home' %}" class="button is-light is-fullwidth">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}   {% endcomment %}

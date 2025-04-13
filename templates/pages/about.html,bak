@@ -1,0 +1,228 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-12">
+            <h1 class="display-4">Our Programs</h1>
+            <p class="lead">
+              Students engage in the Smart Kid's environment, where they learn at their own pace and develop social skills, work habits, confidence, and independence. The Smart Kids learning environment is designed to stimulate their sense of discovery and promote continuous learning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section id="bc" class="mt-3">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+            <a href="{% url 'home' %}"> <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="breadcrumb-item active">About</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <section id="about" class="py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h2>Nido (N)</h2>
+            <p class="lead">
+              <p>9-16 Months</p>
+              <p>Infant Program</p>
+              <p>Adult supervision required</p>
+              <p><a href class='btn btn-success'>Learn More</a></p>
+              <p>Specially-designed to meet the learning needs of students aged 936 months, our progressive playgroup programs help prepare toddlers to attend school independently.</p>
+            </p>
+            <img src="{% static 'img/about.png' %}" alt="" />
+            <p class="mt-4">
+              our progressive playgroup programs help prepare toddlers to attend school independently.
+            </p>
+          </div>
+
+          <div class="col-md-8">
+            <h2>Taste of Montessori (TOM)</h2>
+            <p class="lead">
+              <p>16 - 36 months</p>
+              <p>Prepares your toddler for Pre-Nursery or Kindergarten Program</p>
+              <p>Limited adult supervision required</p>
+              <p><a href class='btn btn-success'>Learn More</a></p>
+              <p>Students aged 2  3 years old develop motor skills, language, and social skills while increasing their independence and concentration. </p>
+            </p>This immersive bilingual environment equips young children to attend Casa.
+            <img src="{% static 'img/about.png' %}" alt="" />
+            <p class="mt-4">
+              This immersive bilingual environment equips young children to attend Casa.
+            </p>
+          </div>
+
+          <div class="col-md-8">
+            <h2>Stepping Stone Program</h2>
+            <p class="lead">
+              <p>16 - 36 months</p>
+              <p>Prepares your toddler for Pre-Nursery or Kindergarten</p>
+              <p>Limited adult supervision required</p>
+              <p><a href class='btn btn-success'>Learn More</a></p>
+              <p>Students aged 2  3 years old develop motor skills, language, and social skills while increasing their independence and concentration. This immersive bilingual environment equips young children to attend Casa.</p>
+            </p>
+            <img src="{% static 'img/about.png' %}" alt="" />
+            <p class="mt-4">
+              This immersive bilingual environment equips young children to attend Casa.
+            </p>
+          </div>
+
+          <div class="col-md-8">
+            <h2>Montessori Enrichment</h2>
+            <p class="lead">
+              <p>3-6 years old</p>
+              <p>Promotes independence and gradual separation. Preparation and skills training for Pre-Nursery</p>
+              <p>Limited adult supervision required</p>
+              <p><a href class='btn btn-success'>Learn More</a></p>
+              <p>A mixed-age classroom for students aged 3  6, Casa is an environment rich in curiosity, communication, and budding skills as readers, writers, and explorers. Over the three years, Casa students develop literacy and numeracy, confidence, grace and courtesy skills, and a deep-seated interest learning.</p>
+            </p>
+            <img src="{% static 'img/about.png' %}" alt="" />
+            <p class="mt-4">
+              
+            </p>
+          </div>
+
+          <div class="col-md-8">
+            <h2>Primary School</h2>
+            <p class="lead">
+              <p>6-12 years old</p>
+              <p>Prepares your toddler for Pre-Nursery or Kindergarten Program</p>
+              <p>Limited adult supervision required</p>
+              <p><a href class='btn btn-success'>Learn More</a></p>
+              <p>Our students move on to both local and international primary schools from age 6 upwards. A Montessori child is prepared to transition to the next stage of their education with a solid foundation of self-awareness, collaborative learning experiences, and experiential, student-led learning.</p>
+            </p>
+            <img src="{% static 'img/about.png' %}" alt="" />
+            <p class="mt-4">
+             
+            </p>
+          </div>
+
+          {% if is_registered %}
+          <div class="col-md-4">
+            {% for tutor in is_registered %}     
+            <div class="card">
+            {% comment %} fix image later {% endcomment %}
+              <img
+                class="card-img-top"
+                src="{{tutor.photo.url}}"
+                alt="Seller of the month"
+              />
+              <div class="card-body">
+                <h5 class="card-course_name">Top tutor</h5>
+                <h6 class="text-secondary">{{tutor.name}}</h6>
+                <p class="card-text">{{tutor.admission_criteria}}</p>
+              </div>           
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="bg-dark text-white text-center">
+      <h4 class="display-4">Curriculum for all playgroups includes:</h4>
+      <h6>
+        <p>
+        1. Practical life  Children develop fine moto skills while engaging in real life activities</p>
+        <p>
+        2. Language  Implicit and explicit language learning through activities that encourage naming and conversation, as well as themed circle time activities, stories and music.</p>
+        <p>
+        3. Sensorial  Multi-sensory exploration to facilitate whole-brain learning as children use their senses to build knowledge about the size, color, shape and texture in the world around them.</p>
+        <p>
+        4. Ars & Crafts  Children practice assembling, cutting, gluing and painting through simple procedural thinking exercises.</p>
+        <p>
+        5. Numeracy  Introduces counting and concepts of order and sequence. </p>
+        <p>
+        6. Social-Emotional skills  Childern learn to explore and express feelings, engage with others, and become more independent.</p>
+        </p>
+      </h6>
+      <hr />
+      {% comment %} fix course.html later {% endcomment %}
+     
+      <a href="{% url 'course' %}" class="btn btn-secondary text-white btn-lg"
+        >View Our Featured courses</a
+      >
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="py-5">
+      <div class="container">
+        <h2 class="text-center">Our Team</h2>
+        <div class="row text-center">
+        {% if tutors_name %} {% for tutor in tutors %}
+          <div class="col-md-4">
+
+          {% comment %} fix img later {% endcomment %}
+            <img
+              src="{{tutor.photo.url}}" alt=""
+              class="rounded-circle mb-3"
+              style="height: 330px; width: 230px"
+            />
+            <h4>{{tutor.name}}</h4>
+            <p class="text-success" style="height: 24px">
+            {% if tutor.is_registered %}
+              <i class="fas fa-award text-success mb-3"></i>{% endif %} tutor
+            </p>
+            <hr />
+            <p><i class="fas fa-phone"></i> {{tutor.phone}}</p>
+            <p><i class="fas fa-envelope-open"></i> {{tutor.email}}</p>
+          </div>
+         {% endfor %} 
+         {% else %}
+         <div class="col-md-12">
+          <p>We are the Best!</p>
+         </div>
+         {% endif %}
+        </div>
+      </div>
+    </section>
+{% endblock %} 
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="course_name">About Our Tutors</h1>
+        
+        <div class="columns is-multiline">
+            {% for tutor in tutors %}
+            <div class="column is-one-third">
+                <div class="card">
+                    {% if tutor.photo %}
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ tutor.photo.url }}" alt="{{ tutor.name }}">
+                        </figure>
+                    </div>
+                    {% endif %}
+                    <div class="card-content">
+                        <h2 class="course_name is-4">{{ tutor.name }}</h2>
+                        <p class="subcourse_name is-6">{{ tutor.specialization }}</p>
+                        <div class="content">
+                            <p><strong>Experience:</strong> {{ tutor.experience }} years</p>
+                            <p><strong>Education:</strong> {{ tutor.education }}</p>
+                            <p><strong>Hire Date:</strong> {{ tutor.hire_date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="column">
+                <p class="has-text-centered">No tutors available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}  {% endcomment %}

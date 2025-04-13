@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">Our Programs</h1>
+                <p class="lead">
+                    Students engage in the Smart Kid's environment...
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active">About</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<section id="about" class="py-4">
+    <div class="container">
+        <div class="row">
+            <!-- Static Program Sections -->
+            <div class="col-md-8">
+                <h2>Nido (N)</h2>
+                <p class="lead">
+                    <p>9-16 Months</p>
+                    <p>Infant Program</p>
+                    <p>Adult supervision required</p>
+                    <p><a href="#" class="btn btn-success">Learn More</a></p>
+                    <p>Specially-designed to meet the learning needs...</p>
+                </p>
+                <img src="{% static 'img/about.png' %}" alt="" />
+                <p class="mt-4">Our progressive playgroup programs...</p>
+            </div>
+            <!-- Add other program sections -->
+
+            <!-- Registered Tutors -->
+            <div class="col-md-4">
+                {% if registered_tutors %}
+                    {% for tutor in registered_tutors %}
+                        <div class="card mb-3">
+                            {% if tutor.photo %}
+                                <img class="card-img-top" src="{{ tutor.photo.url }}" alt="{{ tutor.name }}" />
+                            {% else %}
+                                <img class="card-img-top" src="{% static 'img/default_tutor.jpg' %}" alt="Default" />
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">Top Tutor</h5>
+                                <h6 class="text-secondary">{{ tutor.name }}</h6>
+                                <p class="card-text">{{ tutor.admission_criteria|default:"No criteria" }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No registered tutors available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work -->
+<section id="work" class="bg-dark text-white text-center">
+    <h4 class="display-4">Curriculum for all playgroups includes:</h4>
+    <h6>
+        <p>1. Practical life – Children develop fine motor skills...</p>
+        <!-- Other curriculum items -->
+    </h6>
+    <hr />
+    <a href="{% url 'course' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Courses</a>
+</section>
+
+<!-- Team -->
+<section id="team" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Our Team</h2>
+        <div class="row text-center">
+            {% if tutors %}
+                {% for tutor in tutors %}
+                    <div class="col-md-4">
+                        {% if tutor.photo %}
+                            <img src="{{ tutor.photo.url }}" alt="{{ tutor.name }}" class="rounded-circle mb-3" style="height: 230px; width: 230px" />
+                        {% else %}
+                            <img src="{% static 'img/default_tutor.jpg' %}" alt="Default" class="rounded-circle mb-3" style="height: 230px; width: 230px" />
+                        {% endif %}
+                        <h4>{{ tutor.name }}</h4>
+                        <p class="text-success">
+                            {% if tutor.is_registered %}
+                                <i class="fas fa-award text-success mb-3"></i> Registered Tutor
+                            {% else %}
+                                Tutor
+                            {% endif %}
+                        </p>
+                        <hr />
+                        <p><i class="fas fa-phone"></i> {{ tutor.phone|default:"No phone" }}</p>
+                        <p><i class="fas fa-envelope-open"></i> {{ tutor.email|default:"No email" }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No tutors available.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Pages (if needed) -->
+<section id="pages" class="py-5">
+    <div class="container">
+        <h2>Pages</h2>
+        {% for page in pages %}
+            <p>{{ page.content|default:"No content" }}</p>
+        {% empty %}
+            <p>No pages available.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

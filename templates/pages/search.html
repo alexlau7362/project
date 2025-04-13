@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">Browse Courses</h1>
+        <p class="lead">Find the perfect course for your children</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="{% url 'home' %}">
+            <i class="fas fa-home"></i> Home</a>
+        </li>
+        <li class="breadcrumb-item active">Browse Courses</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- Search Form -->
+<section id="search" class="py-4">
+  <div class="container">
+    <form action="{% url 'search' %}">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="sr-only">Keywords</label>
+          <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)" value="{{ values.keywords }}">
+        </div>
+        <div class="col-md-4">
+          <label class="sr-only">Course Name</label>
+          <select name="course_name" class="form-control">
+            <option selected="true" disabled="disabled">Course Name (All)</option>
+            {% for key,value in course_name_choices.items %}
+              <option value="{{ key }}" {% if key == values.course_name %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="sr-only">Course Code</label>
+          <select name="course_code" class="form-control">
+            <option selected="true" disabled="disabled">Course Code (All)</option>
+            {% for key,value in course_code_choices.items %}
+              <option value="{{ key }}" {% if key == values.course_code %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="sr-only">Location</label>
+          <select name="location" class="form-control">
+            <option selected="true" disabled="disabled">Location (All)</option>
+            {% for key,value in location_choices.items %}
+              <option value="{{ key }}" {% if key == values.location %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-secondary btn-block" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Courses -->
+<section id="courses" class="py-4">
+  <div class="container">
+    <div class="row">
+      {% if courses %}
+        {% for course in courses %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card course_name-preview">
+              <img class="card-img-top" src="{{ course.photo_main.url }}" alt="">
+              <div class="card-img-overlay">
+                <h2>
+                  <span class="badge badge-secondary text-white">${{ course.fee }}</span>
+                </h2>
+              </div>
+              <div class="card-body">
+                <div class="course_name-heading text-center">
+                  <h4 class="text-primary">{{ course.course_name }}</h4>
+                  <p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{ course.location }}
+                  </p>
+                </div>
+                <hr>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    <i class="fas fa-th-large"></i> Course Code: {{ course.course_code }}
+                  </div>
+                  <div class="col-6">
+                    <i class="fas fa-car"></i> Course Name: {{ course.course_name }}
+                  </div>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-12">
+                    <i class="fas fa-bed"></i> {{ course.admission_criteria }}
+                  </div>
+                </div>
+                <hr>
+                <a href="{% url 'course' course.id %}" class="btn btn-primary btn-block">More Info</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-md-12">
+          <p>No Courses Available</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %} 

@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% load static %} {% load humanize %} {% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">User Noticeboard</h1>
+          <p class="lead">Manage the courses</p>
+        </div>
+      </div>
+    </div>
+</section>
+
+   <!-- Breadcrumb -->
+   <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}"> <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active">Noticeboard</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Welcome {{course.tutor.id}}</h2>
+          {% if enquiries %}
+          <p>Here are courses that you have inquired about</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Shine Education</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for enquiry in enquiries %}
+              <tr>
+                <td>{{enquiry.course_id}}</td>
+                <td>{{enquiry.course}}</td>
+                <td>
+                  <a class="btn btn-info" href="{% url 'course' enquiry.course_id %}">View Course</a>
+                  <a
+                    class="btn btn-light" href ="{% url 'delete_enquiry' course.id %}">Delete Course</a>                  
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p>You have no inquiries</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %} 
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="course_name">Noticeboard</h1>
+        
+        <div class="columns is-multiline">
+            {% for enquiry in enquiries %}
+            <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-content">
+                        <h2 class="course_name is-4">{{ enquiry.subject }}</h2>
+                        <p class="subcourse_name is-6">Date: {{ enquiry.enquiry_date }}</p>
+                        <div class="content">
+                            <p>{{ enquiry.message }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="column">
+                <p class="has-text-centered">No enquiries available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} {% endcomment %}
