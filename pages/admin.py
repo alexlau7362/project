@@ -1,3 +1,4 @@
+"""
 from django.contrib import admin
 
 # Register your models here.
@@ -13,3 +14,5 @@ class PageAdmin(admin.ModelAdmin):
 
 admin.site.register(Page,PageAdmin)
 #admin.site.register(Courses)
+
+"""

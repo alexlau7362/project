@@ -46,7 +46,7 @@ img {
     left: 0;
     min-height: 100%;
     width: 100%;
-    background: rgba(32, 134, 107, 0.8); }
+    background: rgba(233, 10, 133, 0.861); }
 
 #showcase-inner {
   background: url(../img/building.jpg) no-repeat top center/cover fixed;
@@ -61,7 +61,7 @@ img {
     left: 0;
     min-height: 100%;
     width: 100%;
-    background: rgba(32, 134, 107, 0.8); }
+    background: rgba(233, 10, 133, 0.861); }
   #showcase-inner.showcase-search {
     min-height: 270px; }
 
