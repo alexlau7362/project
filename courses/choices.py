@@ -3,18 +3,18 @@ location_choices={
     'OUTDOOR': 'Outdoor'  
 }
 course_name_choices={
-    'A0001': 'A0001', 
-    'B0002': 'B002',
-    'C0003': 'C003',
-    'D0004': 'D004',
-    'E0005': 'E0005',
+    'A0001': 'English Conversation Elementary', 
+    'B0002': 'English Conversation Intermediate',
+    'C0003': 'Mandarin Conversation Elementary',
+    'D0004': 'Mandarin Conversation Intermediate',
+    'E0005': 'Play Group',
 }
 course_code_choices={
-    '0001': '0001', 
-    '0002': '0002',
-    '0003': '0003',
-    '0004': '0004',
-    '0005': '0005',
+    'AB-0001': 'AB-0001', 
+    'AB-0002': 'AB-0002',
+    'CA-0003': 'CA-0003',
+    'CA-0004': 'CA-0004',
+    'EA-0005': 'EA-0005',
 }
 start_date_choices={
     'JAN': 'January',

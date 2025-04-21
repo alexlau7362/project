@@ -1,14 +1,14 @@
 from django.contrib import admin
+from .models import Tutor, Enquiry
 
 # Register your models here.
-from . models import Tutor
 
+@admin.register(Tutor)
 class TutorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_registered' ,'email', 'hire_date', 'login_id')
-    #list_display_links = 'name'
-    #search_fields = 'name'
-    #list_editable = 'is_registered',
-    #list_editable = 'login_id'
-    #list_per_page = '25'
+    list_display = ['name', 'is_registered' ,'email', 'hire_date', 'login_id']
+    search_fields = ['name', 'login_id']
 
-admin.site.register(Tutor,TutorAdmin)
+@admin.register(Enquiry)
+class EnquiryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'course', 'created_at']
+    search_fields = ['name', 'email']

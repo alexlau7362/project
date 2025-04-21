@@ -1,0 +1,26 @@
+<!-- templates/courses/course_detail.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <h2>{{ course.course_name }}</h2>
+  <div class="card">
+    {% if course.photo_main %}
+    <img src="{{ course.photo_main.url }}" alt="{{ course.course_name }}"
+         class="card-img-top" style="max-height: 300px; object-fit: cover;">
+    {% else %}
+    <img src="{% static 'img/default_course.jpg' %}" alt="Default Course"
+         class="card-img-top" style="max-height: 300px; object-fit: cover;">
+    {% endif %}
+    <div class="card-body">
+      <p><strong>Code:</strong> {{ course.course_code }}</p>
+      <p><strong>Fee:</strong> ${{ course.fee }}</p>
+      <p><strong>Start:</strong> {{ course.start_date }}</p>
+      <p><strong>End:</strong> {{ course.end_date }}</p>
+      <p><strong>Location:</strong> {{ course.location }}</p>
+      <p><strong>Criteria:</strong> {{ course.admission_criteria }}</p>
+      <p><strong>Tutor:</strong> {{ course.tutor.name }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

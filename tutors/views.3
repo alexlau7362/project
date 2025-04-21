@@ -1,0 +1,56 @@
+# tutors/views.py
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.conf import settings
+from courses.models import Course
+from .models import Enquiry, Tutor
+from django.contrib import messages
+import logging
+
+logger = logging.getLogger(__name__)
+
+@login_required
+def noticeboard(request):
+    try:
+        tutor = Tutor.objects.get(login_id=request.user.username)
+    except Tutor.DoesNotExist:
+        messages.error(request, "You are not registered as a tutor.")
+        return redirect('home')
+    courses = tutor.courses.all()
+    return render(request, 'tutors/noticeboard.html', {'tutor': tutor, 'courses': courses})
+
+@login_required
+def enquiry(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        phone = request.POST.get('phone', '')
+        message = request.POST['message']
+        enquiry = Enquiry(
+            course=course,
+            name=name,
+            email=email,
+            phone=phone,
+            message=message,
+            user=request.user
+        )
+        enquiry.save()
+        try:
+            send_mail(
+                subject=f'New Enquiry for {course.course_name}',
+                message=f'From: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}',
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=['alauct@google.com'],
+                fail_silently=False,
+            )
+            messages.success(request, 'Your enquiry has been submitted successfully!')
+        except Exception as e:
+            logger.error(f"Failed to send email for enquiry {enquiry.id}: {str(e)}")
+            messages.error(request, 'Your enquiry was submitted, but we failed to send the confirmation email. Please contact support.')
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return JsonResponse({'success': True, 'message': 'Enquiry submitted successfully!'})
+        return redirect('tutors:noticeboard')
+    return render(request, 'tutors/noticeboard.html', {'course': course})

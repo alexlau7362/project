@@ -1,8 +1,10 @@
 from django.contrib import admin
+from . models import Course
+from django.apps import apps
+
+Tutor = apps.get_model('tutors', 'Tutor')
 
 # Register your models here.
-from . models import Tutor, Course
-
 class CoursesAdmin(admin.ModelAdmin):
     list_display = ('tutor', 'course_name' ,'course_code', 'medium', 'admission_criteria', 
         'fee', 'start_date', 'end_date', 'parental_care', 'location', 'class_size',
@@ -14,4 +16,3 @@ class CoursesAdmin(admin.ModelAdmin):
     #list_per_page = '25'
 
 admin.site.register(Course,CoursesAdmin)
-#admin.site.register(Courses)

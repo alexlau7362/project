@@ -1,0 +1,9 @@
+<!-- templates/courses/404.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h2>404 - Not Found</h2>
+  <p>{{ message }}</p>
+  <a href="{% url 'courses' %}" class="btn btn-primary">Back to Courses</a>
+</div>
+{% endblock %}

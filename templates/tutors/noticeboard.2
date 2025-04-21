@@ -1,0 +1,83 @@
+<!-- templates/tutors/noticeboard.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Noticeboard for {{ tutor.name|default:"Tutor" }}</h2>
+  {% if error %}
+    <p class="alert alert-danger">{{ error }}</p>
+  {% else %}
+    <h3>Your Courses</h3>
+    {% for course in courses %}
+      <div class="card mb-3">
+        {% if course.photo_main %}
+          <img src="{{ course.photo_main.url }}" alt="{{ course.course_name }}"
+               class="card-img-top" style="max-height: 200px; object-fit: cover;">
+        {% else %}
+          <img src="{% static 'img/default_course.jpg' %}" alt="Default Course"
+               class="card-img-top" style="max-height: 200px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ course.course_name }}</h5>
+          <p>Code: {{ course.course_code }}</p>
+          <p>Fee: ${{ course.fee }}</p>
+          <p>Start: {{ course.start_date }}</p>
+          <p>End: {{ course.end_date }}</p>
+          <p>Location: {{ course.location }}</p>
+          <button class="btn btn-info btn-sm" onclick="toggleCriteria('criteria-{{ course.id }}')">Detail</button>
+          <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#enquiryModal-{{ course.id }}">Enquiry</button>
+          <div id="criteria-{{ course.id }}" style="display: none; margin-top: 10px;">
+            <p><strong>Admission Criteria:</strong> {{ course.admission_criteria|default:"None" }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enquiry Modal -->
+      <div class="modal fade" id="enquiryModal-{{ course.id }}" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Enquiry for {{ course.course_name }}</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form method="post" action="{% url 'tutors:enquiry' course.id %}">
+              {% csrf_token %}
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="name-{{ course.id }}">Name</label>
+                  <input type="text" class="form-control" id="name-{{ course.id }}" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label for="email-{{ course.id }}">Email</label>
+                  <input type="email" class="form-control" id="email-{{ course.id }}" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone-{{ course.id }}">Phone</label>
+                  <input type="tel" class="form-control" id="phone-{{ course.id }}" name="phone">
+                </div>
+                <div class="form-group">
+                  <label for="message-{{ course.id }}">Message</label>
+                  <textarea class="form-control" id="message-{{ course.id }}" name="message" required></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No courses assigned.</p>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<script>
+function toggleCriteria(id) {
+  var element = document.getElementById(id);
+  element.style.display = element.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+{% endblock %}

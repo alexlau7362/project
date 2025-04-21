@@ -1,0 +1,27 @@
+<!-- templates/pages/about.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Existing sections -->
+<section id="work" class="bg-dark text-white text-center">
+    <h4 class="display-4">Curriculum for all playgroups includes:</h4>
+    <h6>
+        <p>1. Practical life – Children develop fine motor skills...</p>
+        <!-- Other curriculum items -->
+    </h6>
+    <hr />
+    <a href="{% url 'courses' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Courses</a>
+</section>
+<section id="team" class="py-5">
+    <div class="container">
+        <h2 class="text-center">Our Team</h2>
+        <div class="row text-center">
+            {% if tutors %}
+                {% for tutor in tutors %}
+                    <!-- Tutor details -->
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

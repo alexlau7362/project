@@ -1,20 +1,15 @@
 from django.db import models
 from datetime import datetime
-from tutors.models import Tutor
 from . choices import location_choices, course_code_choices, course_name_choices
 from django.core.validators import MaxLengthValidator
 
 # Create your models here.
 class Course(models.Model):
-    # tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE, default=1)
-    
-    tutor = models.ForeignKey(Tutor, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=200,  default="Untitled Course")
+    tutor = models.ForeignKey('tutors.Tutor', on_delete=models.CASCADE)  # Use string reference
     course_name = models.CharField(max_length=200, choices=[(k, v) for k, v in course_name_choices.items()])
     course_code = models.CharField(max_length=20, choices=[(k, v) for k, v in course_code_choices.items()]) 
-    # course_name = models.CharField(max_length=200, choices=course_name_choices.items())
-    # course_code = models.CharField(max_length=20, choices=course_code_choices.items())
     medium = models.CharField(max_length=50)
-    # tutor_name = models.CharField(max_length=50, choices=tutor_choices.items())
     admission_criteria = models.TextField(validators=[MaxLengthValidator(5000)])
     fee = models.IntegerField()
     start_date = models.DateField()
@@ -34,5 +29,4 @@ class Course(models.Model):
     photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
 
     def __str__(self):
-        return f"Course: {self.course_name}"
-    
+        return self.title

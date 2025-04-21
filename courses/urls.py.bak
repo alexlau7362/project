@@ -1,0 +1,12 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('home/', views.index, name='home'),
+    path('about/', views.about, name='about'),
+    path('courses/', views.course, name='courses'),  # For Featured courses
+    path('course/<int:course_id>/', views.course, name='course_detail'),
+    path('accounts/', views.accounts, name='accounts'),
+    path('search/', views.search, name='search'),
+]

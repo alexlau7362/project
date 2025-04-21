@@ -1,0 +1,20 @@
+# tutors/views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from tutors.models import Tutor
+from courses.models import Course
+
+@login_required
+def noticeboard(request):
+    if request.user.is_superuser:
+        return redirect('/admin/')
+    try:
+        tutor = Tutor.objects.get(login_id=request.user.username)
+        courses = Course.objects.filter(tutor=tutor)
+        context = {
+            'tutor': tutor,
+            'courses': courses
+        }
+    except Tutor.DoesNotExist:
+        context = {'error': 'No tutor profile found for this user.'}
+    return render(request, 'tutors/noticeboard.html', context)

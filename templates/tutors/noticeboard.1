@@ -1,0 +1,35 @@
+<!-- templates/tutors/noticeboard.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <h2>Noticeboard for {{ tutor.name|default:"Tutor" }}</h2>
+  {% if error %}
+    <p class="alert alert-danger">{{ error }}</p>
+  {% else %}
+    <h3>Your Courses</h3>
+    {% for course in courses %}
+      <div class="card mb-3">
+        {% if course.photo_main %}
+          <img src="{{ course.photo_main.url }}" alt="{{ course.course_name }}"
+               class="card-img-top" style="max-height: 200px; object-fit: cover;">
+        {% else %}
+          <img src="{% static 'img/default_course.jpg' %}" alt="Default Course"
+               class="card-img-top" style="max-height: 200px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ course.course_name }}</h5>
+          <p>Code: {{ course.course_code }}</p>
+          <p>Fee: ${{ course.fee }}</p>
+          <p>Start: {{ course.start_date }}</p>
+          <p>End: {{ course.end_date }}</p>
+          <p>Location: {{ course.location }}</p>
+          <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Details</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No courses assigned.</p>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

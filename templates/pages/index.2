@@ -1,0 +1,24 @@
+<!-- templates/pages/index.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  {% for course in courses %}
+    <div class="card">
+      {% comment %} fix image later {% endcomment %}
+      <img class="card-img-top" 
+           src="{% if course.photo_main %}{{ course.photo_main.url }}{% else %}{% static 'img/default_course.jpg' %}{% endif %}" 
+           alt="{{ course.course_name|default:'Course' }}" />
+      <h4 class="text-primary">Course Code: {{ course.course_code }}</h4>
+      <div class="card-img-overlay">
+        <h2>
+          <span class="badge badge-secondary text-white">${{ course.fee | intcomma }}</span>
+        </h2>
+      </div>
+      <div class="card-body">
+        <!-- Course details -->
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
