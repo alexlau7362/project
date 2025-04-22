@@ -148,7 +148,7 @@
           {% if courses %}
               {% for course in courses %}
                   <div class="col-md-6 col-lg-4 mb-4">
-                      <div class="card listing-preview">
+                      <div class="card course-preview">
                           {% if course.photo_main %}
                               <img class="card-img-top" src="{{ course.photo_main.url }}" alt="{{ course.course_name|default:'Course Image' }}">
                           {% else %}
@@ -222,7 +222,7 @@
               <p><strong>Start Date:</strong> {{ course.start_date }}</p>
             </div>
             <button class="btn btn-primary toggle-admission" data-course-id="{{ course.id }}">More Info</button>
-            <div id="admission-{{ course.id }}" class="admission-criteria" style="display: none;">
+            <div id="{{ course.id }}" class="admission-criteria" style="display: none;">
                 <p>{{ course.admission_criteria|default:"No criteria provided" }}</p>
             </div>
           </div>
